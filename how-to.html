@@ -1,0 +1,178 @@
+---
+layout: default
+---
+<section id="how-to">
+	<div class="container">
+		<div class="page-title py-4">
+			<h1>How to</h1>
+		</div>
+		<p>
+			<a href="http://betsteem.com"><b class="font-xl">betsteem</b></a> is a betting exchange powered by the steem blockchain, so the first thing you need to now is how does a betting exchange works:
+		</p>
+		<div class="subtitle">
+			<h3 class="subtitle">What is a betting exchange?</h3>
+		</div>
+		<p>
+			A betting exchange is a platform that allow gamblers to bet against each other instead of betting against a bookmaker.
+		</p>
+		<div class="subtitle">
+			<h3 class="subtitle">How does a betting exchange works?</h3>
+		</div>
+		<p>
+			Essentially a betting exchange allows any user to take the place of the bookmaker, offering other users the oportunity to place a bet. This is done through a <b>lay bet</b>. By placing a lay bet you allow other users to place a <b>back bet</b>.
+		</p>
+		<div class="subtitle">
+			<h3 class="subtitle">Lay bets vs Back bets.</h3>
+		</div>
+		<p>A <b>lay bet</b> means to bet on an outcome to not come true.</p>
+		<p class="pl-4">Example: bet on <b>"Team A"</b> not to win, this means to lose or draw the match. For competitions where a draw is not possible, like horse raising, a lay bet simply means to bet a horse not to win.</p>
+		<p>A <b>back bet</b> means to bet on an outcome to come true.</p>
+		<p class="pl-4">Example: bet on <b>"Team A"</b> to win the match.</p>
+		<div id="exchange" class="yellow-box">
+			<h2 class="mt-4 title"><span>A practical example</span></h2>
+			<p>When placing a bet you'll see something like this:</p>
+			<table class="table">
+				<thead>
+					<th></th>
+					<th class="shit"></th>
+					<th class="text-center">Matched</th>
+					<th class="text-center" colspan="2">1</th>
+					<th class="text-center" colspan="2">X</th>
+					<th class="text-center" colspan="2">2</th>
+				</thead>
+				<tbody>
+					<td class="text-center date">Wed<br>08:00</td>
+					<td class="shit">Portugal<br>Morocco</td>
+					<td class="text-center matched" valign="middle">$782,040</td>
+					<td class="text-center back"><b>1.68</b><br>$7989</td>
+						<td class="text-center lay"><b>1.69</b><br>$8109</td>
+					<td class="text-center back"><b>3.8</b><br>$2646</td>
+					<td class="text-center lay"><b>3.8</b><br>$5652</td>
+					<td class="text-center back"><b>6.8</b><br>$1018</td>
+					<td class="text-center lay"><b>6.8</b><br>$13472</td>
+				</tbody>
+			</table>
+			<p>On the right side you can see three columns (1, X and 2), each of them containing two sub columns: <span class="back-">blue</span> and <span class="lay-">pink</span>.</p>
+			<p>The first column <b>(1)</b> targets the first team or player, in this case Portugal, and the subcolumns are for betting that team to win (<span class="back-">blue</span> column) or not to win (<span class="lay-">pink</span> column), namely to <span class="back-">back</span> or <span class="lay-">lay</span> Portugal.</p>
+			<p>The second column <b>(X)</b> targets a draw in the match, the <span class="back-">blue</span> subcolumn used for betting the match will end in a draw and the <span class="lay-">pink</span> subcolumn used for betting the match will <b>not</b> end in a draw, namely to <span class="back-">back</span> or <span class="lay-">lay</span> the draw.</p>
+			<p>The third column <b>(2)</b> targets the second team or player, in this case Morocco, and the subcolumns are for betting that team to win (<span class="back-">blue</span> column) or not to win (<span class="lay-">pink</span> column), namely to <span class="back-">back</span> or <span class="lay-">lay</span> Morocco.</p>
+			<p>The Matched column shows the total ammount of matched bets i.e back bets that have corresponding lay bets.</p>
+			<p>Each <span class="back-">back</span> and <span class="lay-">lay</span> column will display two values: The first one (in bold) represents the current odds and the second one represents the liquidity.</p>
+			<p><b>Liquidity:</b> The liquidity represents the available ammount to bet, this is the total ammount of bets that haven't been matched. So for example in the column <b>1</b> under the <span class="lay-">lay</span> box you can see there's a total ammount of $8,109 waiting to be matched at odds of 1.69, this means that if you place a $10 <span class="lay-">lay</span> bet it will be automatically matched, but if you place a $8,200 <span class="lay-">lay</span> bet then $8,109 from that ammount will be automatically matched but you'll need $91 to be placed as a <span class="back-">back</span> bet by another user or group of users in order for the full $8,200 to be matched.</p>
+			<h4>How to place your bet:</h4>
+			<p>Lets work through an example with the Portugal team:</p>
+			<div class="back text-center"><b>Back bet:</b> Portugal to win.</div>
+			<p>To place a back bet you'll need to click the blue box. then you'll see the following:</p>
+			<table class="table">
+				<thead>
+					<th></th>
+					<th class="shit"></th>
+					<th class="text-center">Matched</th>
+					<th class="text-center" colspan="2">1</th>
+					<th class="text-center" colspan="2">X</th>
+					<th class="text-center" colspan="2">2</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="text-center date">Wed<br>08:00</td>
+						<td class="shit">Portugal<br>Morocco</td>
+						<td class="text-center matched" valign="middle">$782,040</td>
+						<td class="text-center back selected"><b>1.68</b><br>$7989</td>
+						<td class="text-center lay"><b>1.69</b><br>$8109</td>
+						<td class="text-center back"><b>3.8</b><br>$2646</td>
+						<td class="text-center lay"><b>3.85</b><br>$5652</td>
+						<td class="text-center back"><b>6.8</b><br>$1018</td>
+						<td class="text-center lay"><b>7</b><br>$13472</td>
+					</tr>
+					<tr class="bet-row">
+						<td class="back" colspan="9">
+							<div class="d-flex justify-content-between py-2 px-4">
+								<div>Back (Bet For):<br><b>Portugal</b></div>
+								<div class="d-flex">
+									<button class="btn btn-light mr-1">Cancel</button>
+									<div class="form-group">
+										<small class="label">Odds:</small>
+										<input type="text" class="form-control mr-1" disabled value="1.68">
+									</div>
+									<div class="form-group">
+										<small class="label">Stake:</small>
+										<input type="text" class="form-control mr-1" disabled placeholder="stake" value="10">
+									</div>
+									<button class="btn btn-primary mr-1">Place bet</button>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr class="bet-row">
+						<td class="back" colspan="9">
+							<div class="float-right px-4">
+								<span><b>Payout:</b> $16.80</span> 
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>In this case <b>10</b> is our stake, we are betting $10 on Portugal to win the game at odds of 1.68 so, if Portugal indeed wins, we'll get a profit of $6.80 plus our $10 stake we get a total payout of $16.80</p>
+
+			<hr>
+
+			<div class=" lay text-center"><b>Lay bet:</b> Portugal not to win (lose or draw)</div>
+			<p>To place a lay bet you'll need to click the pink box. then you'll see the following</p>
+			<table class="table">
+				<thead>
+					<th></th>
+					<th class="shit"></th>
+					<th class="text-center">Matched</th>
+					<th class="text-center" colspan="2">1</th>
+					<th class="text-center" colspan="2">X</th>
+					<th class="text-center" colspan="2">2</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="text-center date">Wed<br>08:00</td>
+						<td class="shit">Portugal<br>Morocco</td>
+						<td class="text-center matched" valign="middle">$782,040</td>
+						<td class="text-center back"><b>1.68</b><br>$7989</td>
+						<td class="text-center lay selected"><b>1.69</b><br>$8109</td>
+						<td class="text-center back"><b>3.8</b><br>$2646</td>
+						<td class="text-center lay"><b>3.85</b><br>$5652</td>
+						<td class="text-center back"><b>6.8</b><br>$1018</td>
+						<td class="text-center lay"><b>7</b><br>$13472</td>
+					</tr>
+					<tr class="bet-row">
+						<td class="lay" colspan="9">
+							<div class="d-flex justify-content-between py-2 px-4">
+								<div>Lay (Bet Against):<br><b>Portugal</b></div>
+								<div class="d-flex">
+									<button class="btn btn-light mr-1">Cancel</button>
+									<div class="form-group">
+										<small class="label">Odds:</small>
+										<input type="text" class="form-control mr-1" disabled value="1.69">
+									</div>
+									<div class="form-group">
+										<small class="label">Stake:</small>
+										<input type="text" class="form-control mr-1" disabled placeholder="stake" value="10">
+									</div>
+									<button class="btn btn-primary mr-1">Place bet</button>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr class="bet-row">
+						<td class="lay" colspan="9">
+							<div class="float-right px-4">
+								<span class="mr-3"><b>Payout:</b> $16.90</span> 
+								<span><b>Liability:</b> $6.90</span>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>Placing a lay bet is a little different, in this case the 10 in the stake field means we're giving other users the oportunity to place a bet of $10 on Portugal to win. Contrary to a back bet we're now risking $6.90 instead of $10 so if Portugal wins we need to pay $6.90 to a user who backed Portugal for $10. If Portugal draw or loses we take the $10 stake from the user who backed Portugal plus our liablity of $6.90 for a total payout of $16.90</p>
+			<hr>
+			<h4>Important note:</h4>
+			<p>In betsteem you wont use fiat money to bet, instead you place bets in the form of votes using your Steem Voting Power, we then make the necessary calculations to show you the aproximate USD value.</p>
+			<p>The USD values showed on the page are aproximate because of the changes in SBD price. On the backend we record all transactions on <b>rshares</b> which is the base value used by Steem to calculate the value of an upvote.</p>
+		</div>
+	</div>
+</section>

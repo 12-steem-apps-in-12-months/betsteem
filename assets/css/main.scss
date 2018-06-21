@@ -1,0 +1,371 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+@charset "utf-8";
+@import "bootstrap";
+
+.font-xl {
+	font-size: $font-size-xl;
+}
+.font-lg {
+	font-size: $font-size-lg;
+}
+.font-sm {
+	font-size: $font-size-sm;
+}
+.font-xs {
+	font-size: $font-size-xs;
+}
+.font-gray-light {
+	color: $gray-500
+}
+.site-header {
+	.navbar {
+		&.main{
+			background: $gray-900;
+			a {
+				color: $yellow;
+			}
+			.dropdown-toggle {
+				&:after {
+					display: none;
+				}
+				i {
+					font-size: $font-size-sm;
+				}
+			}
+			.dropdown-menu {
+				width: 300px;
+				background: $gray-900;
+				color: $gray-400;
+				input,
+				input::-webkit-input-placeholder {
+			    font-size: $font-size-sm;
+				}
+				.input-group-text {
+					background: $white;
+				}
+			}
+		}
+		&.secondary {
+			font-size: $font-size-sm;
+			background: $yellow;
+			li:nth-child(1){
+				border-left: 1px solid $gray-900;
+			}
+			a {
+				color: $gray-900;
+				border-right: 1px solid $gray-900;
+			}
+		}
+	}
+}
+.page-title {
+	h1 {
+		display: inline-block;
+		font-weight: 900;
+		&:after {
+			display: block;
+			content: '';
+			width: 70%;
+			height: 5px;
+			background: $yellow;
+		}
+	}
+}
+.subtitle {
+	* {
+		display: inline-block;
+		&:after {
+			display: block;
+			content: '';
+			width: 30%;
+			height: 5px;
+			background: $yellow;
+		}
+	}
+}
+.nav-tabs.clean {
+	.nav-link {
+		font-weight: $font-weight-bold;
+		color: $gray-900;
+		&.active {
+			border: none;
+			border-bottom: 3px solid $yellow;
+		}
+		&:not(.active):hover, &:not(.active):focus{
+			border: none;
+		}
+
+	}
+}
+.table.quiniela {
+	input {
+		max-width: 40px;
+		text-align: center;
+	}
+	.starts {
+		border: none;
+		font-size: $font-size-sm;
+		padding: 0;
+	}
+}
+.custom-select:focus {
+	border-color: $gray-400;
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+}
+.btn-outline-primary {
+	color: $gray-900;
+}
+.yellow-box {
+	border: 2px solid #FFC722;
+  padding: 10px 30px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  .title {
+  	margin-top: -30px!important;
+  	text-align: center;
+  	span {
+  		background: #fff;
+  		display: inline-block;
+  		padding: 0 10px;
+  	}
+  }
+}
+.loader {
+	display: none;
+}
+.loading .loader {
+	display: block;
+	height: 200px;
+	i {
+		position: absolute;
+    top: calc(50% - 20px);
+    font-size: 40px;
+    left: calc(50% - 20px);
+	}
+}
+
+//HOME
+	#home	{
+		#intro {
+			height: calc(100vh - 37px);
+			.bg {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: -1;
+				background: url("/assets/images/home-bg.jpg") no-repeat center center;
+				background-size: cover; 
+			  -webkit-background-size: cover;
+			  -moz-background-size: cover;
+			  -o-background-size: cover;
+			  background-size: cover;
+				&:after {
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					content: '';
+					background: rgba(0,0,0,.6);
+					
+				}
+			}
+			.container	{
+				height: calc(100vh - 37px);
+				color: #fff;
+				.headline {
+					//margin-bottom: 220px; //With boxes
+					margin-bottom: 100px; //Whithout boxes
+					.intro {
+						font-size: 20px;
+						font-weight: $font-weight-bold;
+					}
+					.subline {
+						width: 30%;
+						margin-top: 10px;
+						border-bottom: 4px solid $yellow;
+					}
+					.extend {
+						font-size: 40px;
+						margin-top: 10px;
+					}
+				}
+			}
+		}
+		.boxes {
+			color: #fff;
+			margin-top: -200px;
+			margin-bottom: 50px;
+			> div:nth-child(1){
+				background: rgba(174, 131, 3, 1);
+			}
+			> div:nth-child(2){
+				background: rgba(195, 147, 4, 1);
+			}
+			> div:nth-child(3){
+				background: rgba(217, 164, 4, 1);
+			}
+			> div:nth-child(4){
+				background: rgba(221, 173, 30, 1);
+			}
+			.box {
+				padding: 1rem 3rem;
+			}
+		}
+		.how-to {
+			.example-match {
+	    	margin-bottom: 1rem;
+	    }
+	    .result	{
+	    	display: inline-block;
+	    	position: relative;
+	    	margin: 0 10px;
+	    	img {
+	    		display: inline-block;
+	    		margin: 0 20px;
+	    	}
+		    .home {
+		    	background: $dark;
+		    	color: $gray-500;
+		    	padding: 10px 15px;
+		    	white-space: none;
+		    	padding-right: 15px;
+		    	font-weight: bold;
+		    }
+		    .away {
+		    	background: $yellow;
+		    	padding: 10px 15px;
+		    	white-space: none;
+		    	padding-left: 15px;
+		    	font-weight: bold;
+		    }
+		    .vs {
+		    	position: absolute;
+			    background: #fff;
+			    border-radius: 50%;
+			    padding: 3px 5px;
+			    font-size: 0.6rem;
+			    left: calc(50% - 10px)
+		    }
+	    }
+		}
+		.half {
+			position: relative;
+			padding-bottom: 30px;
+			.bg {
+				z-index: -1;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				.row {
+					height: 100%;
+				}
+				.first-half {
+					background: $yellow;
+				}
+				.second-half {
+					background: $dark;
+				}
+			}
+			a {
+				color: $yellow;
+			}		
+		}
+	}
+
+//QUINIELAS
+	#quinielas {
+		.card-header {
+			background: $gray-900;
+			color: $yellow;
+			font-weight: bold;
+			cursor: pointer;
+			&:after{
+				content: "\f068";
+				font-family: "Font Awesome 5 Free";
+    		font-size: 14px;
+    		float: right;
+			}
+			&.collapsed:after{
+				content: "\f067";
+			}
+		}
+	}
+
+//Exchange
+	#exchange {
+		table {
+			font-size: 12px;
+		}
+		th {
+			border: none;
+			padding: 0rem;
+		}
+		td.selected {
+			box-shadow: inset 0px 0px 14px 0px rgba(0, 0, 0, 0.30);
+		}
+		.date {
+			background: $gray-200;
+			padding-left: 0;
+			padding-right: 0;
+			width: 55px;
+		}
+		.matched {
+			vertical-align: middle;
+		}
+		.back- {
+			color: #75c2fd;
+			font-weight: 900;
+		}
+		.back {
+			background: #a6d8ff;
+			padding: 0rem;
+			vertical-align: middle;
+			border: 0.5px solid #fff;
+		}
+		.lay- {
+			color: #f694aa;
+			font-weight: 900;
+		}
+		.lay {
+			background: #fac9d1;
+			padding: 0rem;
+			vertical-align: middle;
+			border: 0.5px solid #fff;
+		}
+		.bet-row {
+			td {
+				border: none;
+			}
+			.btn, input {
+				font-size: 12px;
+				padding-top: 0;
+				padding-bottom: 0;
+				line-height: 1;
+			}
+			.form-group {
+				position: relative;
+				margin-bottom: 0;
+				.label {
+					position: absolute;
+					top: 0;
+				}
+			}
+			input {
+				max-width: 100px;
+				text-align: center;
+				margin-top: 13px;
+				min-height: 23px;
+			}
+		}
+	}
+	

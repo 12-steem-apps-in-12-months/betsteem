@@ -1,0 +1,82 @@
+<header class="site-header">
+	<nav class="navbar navbar-expand main py-0">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/"><b>betsteem</b><span class="font-xs"> beta</span></a>
+		  
+		  <div class="collapse navbar-collapse">
+		    <ul class="navbar-nav ml-auto">
+		      <li class="nav-item dropdown" v-if="!steem.name">
+		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          <i class="fa fa-lock"></i> Login
+		        </a>
+		        <div class="dropdown-menu dropdown-menu-right logindropdown px-3 py-3 font-xs" aria-labelledby="navbarDropdown">
+		          <div class="form">
+						    <div class="form-group">
+						    	<div class="input-group input-group-sm">
+									  <div class="input-group-prepend">
+									    <span class="input-group-text"><i class="fas fa-user"></i></span>
+									  </div>
+									  <input ref="username" type="text" class="form-control" placeholder="STEEM Username">
+									</div>
+									<p class="text-danger steemuname-error" v-if="errors.notFound">User not found</p>
+						    </div>
+						    <div class="form-group wif-group">
+						    	<div class="input-group input-group-sm">
+									  <div class="input-group-prepend">
+									    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+									  </div>
+									  <input ref="wif" type="password" class="form-control" placeholder="Private Posting Key">
+									</div>
+									<p class="text-danger wif-format" v-if="errors.wif">This doesn't seem like a Private Posting Key.</p>
+									<p class="text-danger wif-mismatch" v-if="errors.mismatch">This Private Posting Key does not correspond to the specified user.</p>
+						    </div>
+						    <div class="mb-3">Private posting keys allows you to post and upvote content on the steem blockchain, however they don't allow any access to your account funds. <br>SteemGit doesn't store your private posting key.</div>
+						    <div class="form-check mb-3">
+						      <input type="checkbox" class="form-check-input" id="remember" ref="remember" checked>
+						      <label class="form-check-label" for="remember">
+						        Remember me
+						      </label>
+						    </div>
+						    <button v-on:click="steemLogin" class="btn btn-primary btn-sm btn-block">Login</button>
+						    <!--<button v-on:click="steemLogin" class="btn btn-sm btn-block btn-gh mb-3 login-btn" :disabled="!login.username || login.wif.length === 0 || login.button !== 'login'" v-html="login.button"></button>-->
+						  </div>
+						  <!--<div class="steem-connect d-none text-center">
+						  	<p><span>OR</span></p>
+						  	<button type="submit" class="btn btn-sm btn-block btn-gh mb-3" :disabled="!login.username || login.wif.length === 0">Login with STEEMCONNECT</button>
+						  </div>-->
+						  <a href="#" class="d-none">New around here? Sign up</a>
+		        </div>
+		      </li>
+		      <li v-if="steem.name">
+		      	<a class="nav-link" href="#">
+		          <span v-text="steem.name"></span>
+		        </a>
+		      </li>
+		    </ul>
+		  </div>
+	  </div>
+	</nav>
+	<nav class="navbar navbar-expand secondary py-0">
+		<div class="container">
+			<div class="collapse navbar-collapse">
+		    <ul class="navbar-nav">
+		      <li class="nav-item">
+		        <a class="nav-link py-1" href="/quinielas" role="button">
+		          Quinielas 
+		        </a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link py-1" href="/exchange" role="button">
+		          Exchange
+		        </a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link py-1" href="/how-to" role="button">
+		          How To
+		        </a>
+		      </li>
+		    </ul>
+		  </div>
+	  </div>
+	</nav>
+</header>
