@@ -1,11 +1,13 @@
 ///////// GLOBAL VARIABLES /////////
-	var community     = 'bet-steem';
-	var quinielasPost = 'quinielas-russia-2018-betsteem'
+	var community     = 'betstem';
+	var quinielasPost = 'quinielas-russia-2018-betsteem--'
+	var exchangePosts = 'fifa-world-cup-matches-jun24-betstem'
 	var strings       = {
 		countries: {
 			"Russia":"ru","Saudi Arabia":"sa","Egypt":"eg","Uruguay":"uy","Morocco":"ma","Iran":"ir","Portugal":"pt","Spain":"es","France":"fr","Australia":"au","Argentina":"ar","Iceland":"is","Peru":"pe","Denmark":"dk","Croatia":"hr","Nigeria":"ng","Costa Rica":"cr","Germany":"de","Mexico":"mx","Brazil":"br","Switzerland":"ch","Sweden":"se","South Korea":"kr","Belgium":"be","Panama":"pa","Tunisia":"tn","England":"gb","Colombia":"co","Japan":"jp","Poland":"pl","Senegal":"sn", "Serbia": "rs"
 		},
 		months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+		days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 		buttons: {
 			login: 'Login',
 			wait: '<i class="fas fa-spinner fa-spin"></i>'
@@ -18,7 +20,7 @@
 			  e.stopPropagation();
 			});
 
-		// Encode & decode content
+		//Encode & decode content
 			function encodeContent(_content){
 				if(typeof(_content) === 'object'){
 					_content = JSON.stringify(_content);
@@ -79,6 +81,28 @@
 			  $('#voteQuiniela .publishing').removeClass('d-none');
 			  $('#voteQuiniela .close, #voteQuiniela .wait, #voteQuiniela .success, #voteQuiniela .publish-post, #voteQuiniela .published').addClass('d-none');
 			})
+			$(document).on('hidden.bs.modal', '#exchangeModal', function (e) {
+			  $('#exchangeModal .review, #exchangeModal .confirm-bet, #exchangeModal table').removeClass('d-none');
+			  $('#exchangeModal .wait, #exchangeModal .confirm, #exchangeModal .waiter').addClass('d-none');
+			})
+	
+		//Get current GMT time
+			function getTime(){
+				return new Promise(resolve => {
+					$.get("http://api.timezonedb.com/v2/get-time-zone?key=ZMSNQ4EDMNQ0&format=json&by=zone&zone=America/Danmarkshavn", function(data, status){
+			      var time = data.formatted;
+			      resolve(time);
+			    });
+				})
+			}
+
+		//Clicking the stake input if its value is 0 clear value, its uncomfortable to place a value when there's a 0 in it
+			$(document).on('click', 'input.stake', function(){
+				if(this.value == 0){
+					this.value = ''
+				}
+			})
+
 	//STEEM
 		function getSteemUser(user, repeated){
 			return new Promise(resolve => {
@@ -131,7 +155,6 @@
 					sbd    : sbd,
 					secondsago: secondsago
 				}
-				console.log(voting)
 				resolve(voting );
 			})
 		}
@@ -192,7 +215,6 @@
 	    		par.permlink, 
 	    		par.weight, 
 	    		async function(err, vote){
-	    			console.log(err, vote)
 	    			if(err){
 	    				if(repeated){
 	    					if(par.author !== community){
@@ -209,7 +231,6 @@
 	    					castVote(par, true)
 	    				}
 	    			}else{
-	    				console.log(vote);
 	    				resolve(vote);
 	    			}
 	    		}
@@ -239,6 +260,7 @@
 						if(post.children > 0){
 							post.replies = await fetchreplies(post)
 						}
+						console.log(post)
 						resolve(post)
 					}
 				});
@@ -285,6 +307,7 @@
 				  			var options = await commentOptions(par);
 				  			resolve({comment: comment, options: options})
 				  		}else{
+				  			console.log(err, comment)
 				  			resolve({comment: comment})
 				  		}
 				  	}
@@ -327,11 +350,11 @@
 			})
 		}
 
-		function estimateVote(weight){
+		function estimateVote(user, weight){
 			steem.api.getRewardFund("post", function(err,reward_fund){
 				var recent_claims = parseInt(reward_fund.recent_claims);
 				var reward_balance = parseFloat(reward_fund.reward_balance.replace(" STEEM", ""))
-				steem.api.getAccounts(['ar2ro'], function(err, users){
+				steem.api.getAccounts([user], function(err, users){
 					var user                     = users[0];
 					var vesting_shares           = parseFloat(user.vesting_shares.replace(" VESTS", ""))
 					var received_vesting_shares  = parseFloat(user.received_vesting_shares.replace(" VESTS", ""))
@@ -360,9 +383,13 @@ window.app = new Vue({
 	el: '#app',
 	delimiters: ["{[","]}"],
 	data: {
-		steem: {name: null, avatar: null, wif: null, voting: null},
-		errors: {wif: false, mismatch: false, notFound: false, steemit: false},
-		quinielas : {items: null, votes: {}}
+		steem     : {name: null, avatar: null, wif: null, voting: null},
+		errors    : {wif: false, mismatch: false, notFound: false, steemit: false},
+		quinielas : {items: null, votes: {}},
+		gtm       : '',
+		matches   : {},
+		bet       : {day: '', type: '', post: '', stake: 0, selection: '', liability: 0, limit: null, payout: null},
+		voteValue : {}
 	},
 	methods: {
 		steemLogin: async function(event){
@@ -514,6 +541,104 @@ window.app = new Vue({
 				totals[1] += v;
 			})
 			return totals
+		},
+		getMatchDate(date, time){
+			var d = new Date(date);
+			if(time){
+				return strings.days[d.getDay()] + '<br>' + date.split(' ')[1].substr(0, date.split(' ')[1].lastIndexOf(":"));
+			}else{
+				return strings.days[d.getDay()] + ' ' + d.getDate() + ' ' + strings.months[d.getMonth()];
+			}
+		},
+		profitConfirm(type){
+			var profit = type === 'back' ? this.bet.stake * (this.bet.odds - 1) : this.bet.stake;
+			var fee = profit * 0.1;
+			var risked = type === 'back' ? this.bet.stake : this.bet.liability;
+			var payout = risked + (profit - fee);
+			this.$set(this.bet, 'payout', payout);
+			var html = '<div>Profit: <span class="float-right">$' + profit.toFixed(8) + '</span></div>';
+			html      += '<div>- fee(10%): <span class="float-right">$' + fee.toFixed(8) + '</span></div>';
+			if(type === 'back'){
+				html      += '<div>+ Your stake: <span class="float-right">$' + this.bet.stake.toFixed(8) + '</span></div>';
+			}else{
+				html      += '<div>+ Your liability: <span class="float-right">$' + this.bet.liability.toFixed(8) + '</span></div>';
+			}
+			html      += '<div>Total payout: <span class="float-right"><b>$' + payout.toFixed(8) + '</b></span></div>';
+			$('#exchangeModal .payout').html(html)
+		},
+		placeBet: async function(){
+			$('#exchangeModal .review, #exchangeModal .confirm-bet, #exchangeModal table').addClass('d-none');
+			$('#exchangeModal .wait, #exchangeModal .waiter').removeClass('d-none');
+			var selectedVoteValue = this.bet.type === 'back' ? this.bet.stake : this.bet.liability;
+			//Get current voting value, current_voting_power may have changed since last time calculated
+			var currentVoteValue  = await getCurrentVoteValue(this.steem.name, 10000);
+			//this is the needed weight to produce a vote with the selected value.
+			var voteWeight = 10000 * selectedVoteValue /currentVoteValue.sbd;
+			//voteWeight may be higher than 100% (10000). Example a vote at 100% weight is 0.0016, if I try to get the weight needed vor a 1.00 vote I get a weight higher than 100% so if it's higger than 100 make  it 100
+			voteWeight = voteWeight > 10000 ? 10000 : voteWeight;
+			var vote = await castVote({//Vote on that comment
+				wif: this.steem.wif,
+    		voter: this.steem.name,
+    		author: community,
+    		permlink: this.bet.post, 
+    		weight: voteWeight
+			})
+			console.log(vote)
+			var replyPermlink = steem.formatter.commentPermlink(community, this.bet.post);
+			var reply_meta = {
+				community : 'betsteem', 
+				app       : 'betsteem/1.0.0', 
+				tags      : ['betsteem', 'betting-exchange', 'world-cup', 'betting'], 
+				links     : ['http://betsteem.com'],
+				format    : 'html',
+				vote      : vote,
+				bet       : this.bet
+			}
+			var comment = await postComment({//Create a comment with the selection data
+				private_posting_wif: this.steem.wif,  
+			  parent_author: community,
+			  parent_permlink: this.bet.post,
+			  author: this.steem.name,
+			  permlink: replyPermlink,
+			  title: this.bet.type + '-' + this.bet.selection,
+			  body: this.bet.type + ' ' + this.bet.selection + ' at ' + this.bet.odds + ' for ≈$' + this.bet.stake,
+			  json_metadata: JSON.stringify(reply_meta),
+			})
+			$('#exchangeModal .wait, #exchangeModal .waiter').addClass('d-none');
+			$('#exchangeModal .confirm, #exchangeModal table').removeClass('d-none');
+		},
+		getLiquidity(bet, get){
+			var $return = {
+				back: 0,
+				lay: 0
+			}
+			if(bet.back > bet.lay){
+				$return.back = 0;
+				$return.lay = bet.back - bet.lay;
+			}else if(bet.lay > bet.back){
+				$return.back = bet.lay - bet.back;
+				$return.lay = 0;
+			}
+			return($return[get]);
+		},
+		getMatchedAmmount(match){
+			var matched = 0;
+			if(match.away.bets.back < match.away.bets.lay){
+				matched += match.away.bets.back
+			}else{
+				matched += match.away.bets.lay
+			}
+			if(match.draw.bets.back < match.draw.bets.lay){
+				matched += match.draw.bets.back
+			}else{
+				matched += match.draw.bets.lay
+			}
+			if(match.home.bets.back < match.home.bets.lay){
+				matched += match.home.bets.back
+			}else{
+				matched += match.home.bets.lay
+			}
+			return matched;
 		}
 	},
 	created: async function(){
@@ -527,6 +652,9 @@ window.app = new Vue({
 			this.$set(this.steem, 'voting', voting)
 		}
 		if($('#quinielas').length > 0){//if page is quinielas
+			if(this.steem.name){
+				await getCurrentVoteValue(this.steem.name, 10000)
+			}
 			//Get the post containing the quinielas and save the quinielas data
 			var post = await getPost({author:community, permlink:quinielasPost, nested: false});
 			this.$set(this.quinielas, 'items', JSON.parse(post.json_metadata).quinielas);
@@ -585,6 +713,111 @@ window.app = new Vue({
 					}
 				}
 			}
+		}
+		if($('#exchange').length > 0){
+			$this = this;
+			var time = await getTime()
+			this.$set(this, 'gtm', time)
+		  var matches = {};
+			steem.api.getDiscussionsByBlog({tag: community, limit: 100}, function(err, posts) {
+			  $.each(posts, async function(i,post){
+			  	if(post.permlink.startsWith(exchangePosts)){
+			  		var replies = await fetchreplies({author: community, permlink: post.permlink})//Each of this replies is a match for that day (the day is defined by the top post)
+			  		$.each(replies, function(i,reply){
+			  			if(reply.author === community){
+				  			var match = JSON.parse(reply.json_metadata).match;
+				  			match.permlink = reply.permlink;
+				  			var day = match.date.split(' ')[0]
+				  			if(match.date > $this.gtm){
+					  			if(day in matches){
+					  				matches[day].push(match)
+					  			}else{
+					  				matches[day] = [match];
+					  			}
+					  		}
+			  			}
+			  		})
+			  		/* Just for development*/
+				  		$.each(matches, function(i,v){
+				  			$.each(v, function($i, $v){
+				  				delete $v.away.liquidity
+				  				delete $v.home.liquidity
+				  				delete $v.draw.liquidity
+				  				$v.away.bets = {back: 0, lay: 0}
+				  				$v.home.bets = {back: 0, lay: 0}
+				  				$v.draw.bets = {back: 0, lay: 0}
+				  			})
+				  		})
+			  		
+			  		$this.$set($this, 'matches', matches);
+
+			  		var bets = []
+			  		for(i=0; i<replies.length; i++){
+			  			match = replies[i];
+			  			var comments = await fetchreplies({author: community, permlink: match.permlink})
+			  			bets = bets.concat(comments)
+			  		}
+			  		
+			  		var $matches = $this.matches;
+			  		for(i=0; i<bets.length; i++){
+							var bet       = bets[i];
+							var betDetail = JSON.parse(bet.json_metadata).bet;
+							var selection = betDetail.selection;
+							var type      = betDetail.type;
+							var stake     = betDetail.stake;
+							var post      = betDetail.post;
+			  			$.each($matches, function(day, matchList){
+			  				$.each(matchList, function(index, match){
+			  					if(match.permlink === post){
+			  						if(type === 'Draw'){
+			  							//match.draw.bets = {back: 0, lay: 0};
+			  							match.draw.bets[type] += stake;
+			  							return;
+			  						}else{
+			  							if(match.away.name === selection){
+			  								//match.away.bets = {back: 0, lay: 0};
+			  								match.away.bets[type] += stake;
+			  								return;
+			  							}else if(match.home.name === selection){
+			  								//match.home.bets = {back: 0, lay: 0};
+			  								match.home.bets[type] += stake;
+			  								return;
+			  							}
+			  						}
+			  					}
+			  				})
+			  			})
+			  		}
+			  		$this.$set($this, 'matches', $matches);
+			  	}
+			  })
+			});
+		}
+	},
+	watch: {
+		bet: {
+			handler: function(newValue) {
+				if(this.steem.name){
+					var liability = newValue.stake * (newValue.odds - 1)
+					this.$set(this.bet, 'liability', liability)
+					if(this.bet.type === 'back'){
+						if(newValue.stake > this.steem.voting.sbd){
+							var maxStake = this.steem.voting.sbd
+							this.$set(this.bet, 'limit', maxStake)
+						}else{
+							this.$set(this.bet, 'limit', null)
+						}
+					}else{
+						if(this.bet.liability > this.steem.voting.sbd){
+							var maxStake = this.steem.voting.sbd / (newValue.odds - 1);
+							this.$set(this.bet, 'limit', maxStake)
+						}else{
+							this.$set(this.bet, 'limit', null)
+						}
+					}
+				}
+      },
+      deep: true
 		}
 	}
 })

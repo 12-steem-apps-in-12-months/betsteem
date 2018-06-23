@@ -123,6 +123,7 @@ select {
 	color: $gray-900;
 }
 .yellow-box {
+	text-align: justify;
 	border: 2px solid #FFC722;
   padding: 10px 30px;
   margin-top: 50px;
@@ -150,7 +151,24 @@ select {
     left: calc(50% - 20px);
 	}
 }
-
+.accordion {
+	.card-header {
+		background: $gray-900;
+		color: $yellow;
+		font-weight: bold;
+		cursor: pointer;
+		&:before {
+			content: "\f106";
+			font-family: "Font Awesome 5 Free";
+			font-size: 18px;
+	    line-height: 0.5;
+	    margin-right: 10px;
+		}
+		&.collapsed:before {
+			content: "\f107"
+		}
+	}
+}
 //HOME
 	#home	{
 		#intro {
@@ -282,33 +300,36 @@ select {
 		}
 	}
 
-//QUINIELAS
-	#quinielas {
-		.card-header {
-			background: $gray-900;
-			color: $yellow;
-			font-weight: bold;
-			cursor: pointer;
-			&:after{
-				content: "\f068";
-				font-family: "Font Awesome 5 Free";
-    		font-size: 14px;
-    		float: right;
-			}
-			&.collapsed:after{
-				content: "\f067";
-			}
-		}
-	}
-
 //Exchange
-	#exchange {
-		table {
-			font-size: 12px;
-		}
+	.lay- {
+		color: #f694aa;
+		font-weight: 900;
+	}
+	.back- {
+		color: #75c2fd;
+		font-weight: 900;
+	}
+	.back {
+		cursor: pointer;
+		background: #a6d8ff;
+		padding: 0rem;
+		vertical-align: middle;
+	}
+	
+	.lay {
+		cursor: pointer;
+		background: #fac9d1;
+		padding: 0rem;
+		vertical-align: middle;
+	}
+	table.exchange {
+		font-size: 12px;
 		th {
 			border: none;
 			padding: 0rem;
+		}
+		td {
+			border: 0.5px solid #fff;
 		}
 		td.selected {
 			box-shadow: inset 0px 0px 14px 0px rgba(0, 0, 0, 0.30);
@@ -321,30 +342,34 @@ select {
 		}
 		.matched {
 			vertical-align: middle;
+			padding: 0.3rem;
 		}
-		.back- {
-			color: #75c2fd;
-			font-weight: 900;
+		
+		
+		.bl {
+			border-left: 10px solid #fff;
 		}
-		.back {
-			background: #a6d8ff;
-			padding: 0rem;
-			vertical-align: middle;
-			border: 0.5px solid #fff;
-		}
-		.lay- {
-			color: #f694aa;
-			font-weight: 900;
-		}
-		.lay {
-			background: #fac9d1;
-			padding: 0rem;
-			vertical-align: middle;
-			border: 0.5px solid #fff;
+		.br {
+			border-right: 10px solid #fff;
 		}
 		.bet-row {
+			margin-bottom: 5px;
+			&[data-type="back"]{
+				background: #a6d8ff;
+				+ .bet-row {
+					background: #a6d8ff;
+				}
+			}
+			&[data-type="lay"]{
+				background: #fac9d1;
+				+ .bet-row {
+					background: #fac9d1;
+				}
+			}
 			td {
 				border: none;
+				padding-top: 0;
+				padding-bottom: 0;
 			}
 			.btn, input {
 				font-size: 12px;
@@ -364,8 +389,25 @@ select {
 				max-width: 100px;
 				text-align: center;
 				margin-top: 13px;
-				min-height: 23px;
 			}
 		}
 	}
 	
+	#exchange {
+		table.exchange {
+			.bet-row {
+				button, input {
+					padding-top: 3px;
+					padding-bottom: 3px;
+				}
+				input {
+					margin: 0;
+				}
+			}
+		}
+		#exchangeModal {
+			.modal-dialog {
+				max-width: 95%;
+			}
+		}
+	}
