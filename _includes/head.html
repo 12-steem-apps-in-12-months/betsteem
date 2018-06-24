@@ -14,4 +14,9 @@
 	<link rel="stylesheet" href="{{ '/assets/css/main.css' | prepend: site.baseurl }}?date={{ site.time | date: '%s' }}">
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
+  <script>
+  	if(!localStorage["local"]){
+			console.log('si')
+		}
+  </script>
 </head>

@@ -474,7 +474,7 @@ window.app = new Vue({
 				community : 'betsteem', 
 				app       : 'betsteem/1.0.0', 
 				tags      : ['betsteem', 'quiniela', 'world-cup', 'betting', 'steemdev'], 
-				links     : ['http://betsteem.com/quinielas'],
+				links     : ['https://betsteem.com/quinielas'],
 				format    : 'html',
 				quiniela  : quiniela,
 				vote      : currentVoteValue
@@ -518,7 +518,7 @@ window.app = new Vue({
 				community : 'betsteem', 
 			  app       : 'betsteem/1.0.0', 
 			  tags      : ['betsteem', 'quiniela', 'world-cup', 'betting', 'steemdev'], 
-			  links			: ['http://betsteem.com/quinielas'],
+			  links			: ['https://betsteem.com/quinielas'],
 			  format    : 'html',
 			}
 			var comment = await postComment({
@@ -589,7 +589,7 @@ window.app = new Vue({
 				community : 'betsteem', 
 				app       : 'betsteem/1.0.0', 
 				tags      : ['betsteem', 'betting-exchange', 'world-cup', 'betting'], 
-				links     : ['http://betsteem.com'],
+				links     : ['https://betsteem.com'],
 				format    : 'html',
 				vote      : vote,
 				bet       : this.bet
