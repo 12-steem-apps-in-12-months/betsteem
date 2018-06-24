@@ -89,7 +89,7 @@
 		//Get current GMT time
 			function getTime(){
 				return new Promise(resolve => {
-					$.get("http://api.timezonedb.com/v2/get-time-zone?key=ZMSNQ4EDMNQ0&format=json&by=zone&zone=America/Danmarkshavn", function(data, status){
+					$.get("https://api.timezonedb.com/v2/get-time-zone?key=ZMSNQ4EDMNQ0&format=json&by=zone&zone=America/Danmarkshavn", function(data, status){
 			      var time = data.formatted;
 			      resolve(time);
 			    });
