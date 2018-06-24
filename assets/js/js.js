@@ -1,7 +1,7 @@
 ///////// GLOBAL VARIABLES /////////
 	var community     = 'bet-steem';
 	var quinielasPost = 'quinielas-russia-2018-betsteem'
-	var exchangePosts = 'fifa-world-cup-matches-jun24-betstem'
+	var exchangePosts = 'fifa-world-cup-matches'
 	var strings       = {
 		countries: {
 			"Russia":"ru","Saudi Arabia":"sa","Egypt":"eg","Uruguay":"uy","Morocco":"ma","Iran":"ir","Portugal":"pt","Spain":"es","France":"fr","Australia":"au","Argentina":"ar","Iceland":"is","Peru":"pe","Denmark":"dk","Croatia":"hr","Nigeria":"ng","Costa Rica":"cr","Germany":"de","Mexico":"mx","Brazil":"br","Switzerland":"ch","Sweden":"se","South Korea":"kr","Belgium":"be","Panama":"pa","Tunisia":"tn","England":"gb","Colombia":"co","Japan":"jp","Poland":"pl","Senegal":"sn", "Serbia": "rs"
