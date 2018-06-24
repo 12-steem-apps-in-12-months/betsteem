@@ -1,6 +1,6 @@
 ///////// GLOBAL VARIABLES /////////
-	var community     = 'betstem';
-	var quinielasPost = 'quinielas-russia-2018-betsteem--'
+	var community     = 'bet-steem';
+	var quinielasPost = 'quinielas-russia-2018-betsteem'
 	var exchangePosts = 'fifa-world-cup-matches-jun24-betstem'
 	var strings       = {
 		countries: {
