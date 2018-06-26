@@ -17,4 +17,4 @@ url: "https://betsteem.com" # the base hostname & protocol for your site
 
 # Build settings
 markdown: kramdown
-#testnet: true
+testnet: true

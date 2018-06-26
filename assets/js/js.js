@@ -1,16 +1,16 @@
 ///////// GLOBAL VARIABLES /////////
 	var community     = 'bet-steem';
-	var quinielasPost = 'quinielas-russia-2018-betsteem'
-	var exchangePosts = 'fifa-world-cup-matches'
+	var quinielasPost = 'quinielas-russia-2018-betsteem';
+	var exchangePosts = 'fifa-world-cup-matches';
 	var strings       = {
-		countries: {
-			"Russia":"ru","Saudi Arabia":"sa","Egypt":"eg","Uruguay":"uy","Morocco":"ma","Iran":"ir","Portugal":"pt","Spain":"es","France":"fr","Australia":"au","Argentina":"ar","Iceland":"is","Peru":"pe","Denmark":"dk","Croatia":"hr","Nigeria":"ng","Costa Rica":"cr","Germany":"de","Mexico":"mx","Brazil":"br","Switzerland":"ch","Sweden":"se","South Korea":"kr","Belgium":"be","Panama":"pa","Tunisia":"tn","England":"gb","Colombia":"co","Japan":"jp","Poland":"pl","Senegal":"sn", "Serbia": "rs"
-		},
-		months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-		days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-		buttons: {
-			login: 'Login',
-			wait: '<i class="fas fa-spinner fa-spin"></i>'
+		countries : {
+			"Russia"  :"ru","Saudi Arabia":"sa","Egypt":"eg","Uruguay":"uy","Morocco":"ma","Iran":"ir","Portugal":"pt","Spain":"es","France":"fr","Australia":"au","Argentina":"ar","Iceland":"is","Peru":"pe","Denmark":"dk","Croatia":"hr","Nigeria":"ng","Costa Rica":"cr","Germany":"de","Mexico":"mx","Brazil":"br","Switzerland":"ch","Sweden":"se","South Korea":"kr","Belgium":"be","Panama":"pa","Tunisia":"tn","England":"gb","Colombia":"co","Japan":"jp","Poland":"pl","Senegal":"sn", "Serbia": "rs"
+			},
+		months    : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+		days      : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+		buttons   : {
+			login : 'Login',
+			wait  : '<i class="fas fa-spinner fa-spin"></i>'
 		}
 	}
 ///////// GLOBAL FUNCTIONS /////////
@@ -66,7 +66,7 @@
 				var month   = strings.months[parseInt(_date.split('-')[1]) - 1];
 				var day     = _date.split('-')[2];
 				if(_format === 'closing'){
-					return 'Voting closes on ' + month + ', ' + day + ' at ' + time + ' GMT';
+					return 'Closes on ' + month + ', ' + day + ' at ' + time + ' GMT';
 				}else if(_format === 'starts'){
 					return month + ', ' + day + ' at ' + time + ' GMT';
 				}
@@ -737,7 +737,7 @@ window.app = new Vue({
 					  		}
 			  			}
 			  		})
-			  		/* Just for development*/
+			  		/* Just for development
 				  		$.each(matches, function(i,v){
 				  			$.each(v, function($i, $v){
 				  				delete $v.away.liquidity
@@ -748,6 +748,7 @@ window.app = new Vue({
 				  				$v.draw.bets = {back: 0, lay: 0}
 				  			})
 				  		})
+				  	*/
 			  		
 			  		$this.$set($this, 'matches', matches);
 

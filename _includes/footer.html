@@ -4,12 +4,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
   <!-- VUE -->
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue{% if site.testnet %}{% else %}.min{% endif %}.js"></script>
 	<!-- STEEM -->
 	<script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
 	{% if site.testnet %}
-  <!-- STEEM TESTNET -->
-  <script src="/assets/js/testnet.js?date={{ site.time | date: '%s' }}"></script>
+	  <script>
+	  	steem.api.setOptions({ url: 'https://testnet.steem.vc' });
+			steem.config.set('websocket','wss://testnet.steem.vc');
+			steem.config.set('address_prefix', 'STX');
+			steem.config.set('chain_id', '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673');
+			//Create user:
+				//curl --data "username=betsteem&password=cointreau" https://testnet.steem.vc/create
+	  </script>
   {% endif %}
 	<!-- CUSTOM JS -->
   <script src="/assets/js/js.js?date={{ site.time | date: '%s' }}"></script>
